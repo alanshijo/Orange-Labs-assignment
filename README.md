@@ -15,7 +15,9 @@ Basic automation using Puppeteer
 
 3. Install the required dependencies by running the following command:
 
+```
 npm install
+```
 
 ## Execution
 
@@ -23,7 +25,9 @@ npm install
 
 2. In the terminal or command prompt, run the following command to start the program:
 
+```
 node index.js
+```
 
 3. The program will launch a browser (in non-headless mode) and perform a series of automated actions on the Swap DefiLlama website.
 
