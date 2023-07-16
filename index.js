@@ -9,7 +9,7 @@ const puppeteer = require("puppeteer");
   await page.goto("https://swap.defillama.com");
 
   await page.waitForSelector("#react-select-2-input");
-  await page.type("#react-select-2-input", "Arbitrum One");
+  await page.type("#react-select-2-input", "Arbitrum");
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
 
@@ -38,9 +38,17 @@ const puppeteer = require("puppeteer");
   );
   await usdc.click();
 
-  await page.waitForSelector(".sc-18d0abec-0.knYyMy.RouteWrapper");
-  const secondOption = await page.$x(
-    '(//div[starts-with(@class, "sc-18d0abec-1 itSiES")])[2]'
-  );
-  await secondOption[0].click();
+  await page.waitForFunction(() => {
+    const routeWrapperElements = document.querySelectorAll(".RouteWrapper");
+    return routeWrapperElements.length >= 3;
+  });
+
+  const routeWrapperElements = await page.$$(".RouteWrapper");
+
+  if (routeWrapperElements.length >= 3) {
+    const secondRouteWrapper = routeWrapperElements[1];
+    await secondRouteWrapper.click();
+  } else {
+    console.log("not found.");
+  }
 })();
